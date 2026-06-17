@@ -9,12 +9,17 @@ public class GameOfLife {
         // looking each cell
         for (int i = 0; i < world.length; i++) {
             for (int j = 0; j < world[i].length; j++) {
-                // apply rules
+                newPopulation[i][j] = fitness(i, j, world);
             }
 
         }
         return newPopulation;
 
+    }
+
+    public static int fitness(int row, int col, int[][] grid) {
+        // get neighbors
+        // apply the rules
     }
 
     public static int[][] randomSeed() {
