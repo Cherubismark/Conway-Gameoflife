@@ -17,9 +17,34 @@ public class GameOfLife {
 
     }
 
+    public static int countAliveNeighbors(int row, int col, int[][] world) {
+        int aliveNeigbors = 0;
+
+        for (int i = row - 1; i <= row + 1; i++) {
+            for (int j = col -1; j <= col + 1; j++) {
+                if (exists(i, j)) {
+                    if (world[i][j] == 1) {
+                        aliveNeigbors++;
+                    }
+
+                }
+
+            }
+        }
+        if (world[row][col] == 1) {
+            aliveNeigbors--;
+
+        }
+
+        return aliveNeigbors;
+    }
+
+
     public static int fitness(int row, int col, int[][] grid) {
         // get neighbors
         // apply the rules
+
+        return grid[row][col] == 1 ? 1 : 0;
     }
 
     public static int[][] randomSeed() {
