@@ -4,6 +4,7 @@ public class GameOfLife {
     final static int WIDTH = 100, HEIGHT = 20;
     final static int ALIVE = 1, DEAD = 0;
     final static int LIVES = 1, DIES = 0;
+    static boolean isRunning;
 
 
     public static int[][] epoch(int world[][]) {
@@ -93,6 +94,7 @@ public class GameOfLife {
     }
 
     public static void render(int[][] world) {
+        clearScreen();
         for (int i= 0; i < world.length; i++) {
             for (int j = 0; j < world[i].length; j++) {
                 if (world [i][j] == 1) {
@@ -103,12 +105,33 @@ public class GameOfLife {
             }
             System.out.println();
         }
+        System.out.println();
 
     }
 
+    public static void run(int[][] world) {
+        while (isRunning) {
+            render(world);
+            world = epoch(world);
+            try {
+                Thread.sleep(800);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        // run the game
+        // render the output
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
     public static void main(String[] args) {
         int[][] world = randomSeed();
-        render(world);
+        isRunning = true;
+        run(world);
 
     }
 }
