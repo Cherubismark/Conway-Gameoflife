@@ -2,6 +2,8 @@ import java.util.Random;
 
 public class GameOfLife {
     final static int WIDTH = 100, HEIGHT = 20;
+    final static int ALIVE = 1, DEAD = 0;
+    final static int LIVES = 1, DIES = 0;
 
 
     public static int[][] epoch(int world[][]) {
@@ -32,7 +34,7 @@ public class GameOfLife {
         for (int i = row - 1; i <= row + 1; i++) {
             for (int j = col -1; j <= col + 1; j++) {
                 if (exists(i, j)) {
-                    if (world[i][j] == 1) {
+                    if (world[i][j] == ALIVE) {
                         aliveNeigbors++;
                     }
 
@@ -40,7 +42,7 @@ public class GameOfLife {
 
             }
         }
-        if (world[row][col] == 1) {
+        if (world[row][col] == ALIVE) {
             aliveNeigbors--;
 
         }
@@ -56,21 +58,21 @@ public class GameOfLife {
         // apply the rules
 
         // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
-        if ((curr == 1) && (aliveNeigbors < 2)) {
-            return 0;
+        if ((curr == ALIVE) && (aliveNeigbors < 2)) {
+            return DIES;
         }
         // Any live cell with more than three live neighbours dies, as if by overpopulation.
-        if ((curr == 1) && (aliveNeigbors > 3)) {
-            return 0;
+        if ((curr == ALIVE) && (aliveNeigbors > 3)) {
+            return DIES;
         }
         // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-        if ((curr == 0) && aliveNeigbors == 3) {
-            return 1;
+        if ((curr == DEAD) && aliveNeigbors == 3) {
+            return LIVES;
         }
 
         // Any live cell with two or three live neighbours lives on to the next generation.
-        if ((curr == 1) && ((aliveNeigbors == 2) ||(aliveNeigbors == 3))) {
-            return 1;
+        if ((curr == ALIVE) && ((aliveNeigbors == 2) ||(aliveNeigbors == 3))) {
+            return LIVES;
         }
 
         return curr;
