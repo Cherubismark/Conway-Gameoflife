@@ -1,10 +1,24 @@
 import java.util.Random;
 
 public class GameOfLife {
-    final static int WIDTH = 100, HIEGHT = 20;
+    final static int WIDTH = 100, HEIGHT = 20;
+
+
+    public static int[][] epoch(int world[][]) {
+        int[][] newPopulation = new int[HEIGHT][WIDTH];
+        // looking each cell
+        for (int i = 0; i < world.length; i++) {
+            for (int j = 0; j < world[i].length; j++) {
+                // apply rules
+            }
+
+        }
+        return newPopulation;
+
+    }
 
     public static int[][] randomSeed() {
-        int[][] tmp = new int[HIEGHT][WIDTH];
+        int[][] tmp = new int[HEIGHT][WIDTH];
         Random rand = new Random();
 
         for (int i = 0; i < tmp.length; i++) {
