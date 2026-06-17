@@ -17,6 +17,15 @@ public class GameOfLife {
 
     }
 
+    public static boolean exists(int row, int col) {
+        if ((row >= 0) && (row < HEIGHT) && (col >= 0) && (col < WIDTH)) {
+            return true;
+
+        }
+        return false;
+
+    }
+
     public static int countAliveNeighbors(int row, int col, int[][] world) {
         int aliveNeigbors = 0;
 
@@ -42,9 +51,29 @@ public class GameOfLife {
 
     public static int fitness(int row, int col, int[][] grid) {
         // get neighbors
+        int aliveNeigbors = countAliveNeighbors(row, col, grid);
+        final int curr = grid[row][col];
         // apply the rules
 
-        return grid[row][col] == 1 ? 1 : 0;
+        // Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+        if ((curr == 1) && (aliveNeigbors < 2)) {
+            return 0;
+        }
+        // Any live cell with more than three live neighbours dies, as if by overpopulation.
+        if ((curr == 1) && (aliveNeigbors > 3)) {
+            return 0;
+        }
+        // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+        if ((curr == 0) && aliveNeigbors == 3) {
+            return 1;
+        }
+
+        // Any live cell with two or three live neighbours lives on to the next generation.
+        if ((curr == 1) && ((aliveNeigbors == 2) ||(aliveNeigbors == 3))) {
+            return 1;
+        }
+
+        return curr;
     }
 
     public static int[][] randomSeed() {
